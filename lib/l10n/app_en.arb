@@ -1,0 +1,19 @@
+{
+  "appTitle": "QR Generator",
+  "textOfButton": "You have pushed the button this many times:",
+  "loginText": "Login",
+  "enterYourPhone": "Enter Your Phone",
+  "enterYourPassword": "Password",
+  "forgetPassword": "Forget Password?",
+  "scanTitle": "Scan QR code",
+  "scanText1": "Place QR code inside the frame to scan please",
+  "scanText2": "Avoid shake to get results quickly",
+  "scanningQr": "Scanning Code...",
+  "scanButton": "Place Camera Code",
+  "resultText1": "Proreader will keep your last 10 days history",
+  "resultText2": "To keep all your scanned history please",
+  "resultText3": "purchase our pro package",
+  "resultButton": "Send",
+  "languageText": "Language",
+  "themeText": "Theme"
+}
