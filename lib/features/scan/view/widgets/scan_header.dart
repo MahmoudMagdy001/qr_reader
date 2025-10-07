@@ -16,12 +16,16 @@ class ScanHeader extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     children: [
       SizedBox(height: height * 0.06),
-      Center(
-        child: Text(localization.scanText1, style: theme.textTheme.bodyMedium),
+      Text(
+        textAlign: TextAlign.center,
+        localization.scanText1,
+        style: theme.textTheme.bodyMedium,
       ),
       SizedBox(height: height * 0.003),
-      Center(
-        child: Text(localization.scanText2, style: theme.textTheme.bodyMedium),
+      Text(
+        textAlign: TextAlign.center,
+        localization.scanText2,
+        style: theme.textTheme.bodyMedium,
       ),
     ],
   );

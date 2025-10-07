@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgetPassword.
   ///
   /// In en, this message translates to:
-  /// **'Forgot password?'**
+  /// **'Forgot your password?'**
   String get forgetPassword;
 
   /// No description provided for @loginCreateAccount.
@@ -179,13 +179,13 @@ abstract class AppLocalizations {
   /// No description provided for @successCreateAccount.
   ///
   /// In en, this message translates to:
-  /// **'Account created successfully!'**
+  /// **'Your account has been created successfully!'**
   String get successCreateAccount;
 
   /// No description provided for @weakPassword.
   ///
   /// In en, this message translates to:
-  /// **'The password you provided is too weak.'**
+  /// **'The password you entered is too weak.'**
   String get weakPassword;
 
   /// No description provided for @emailAlreadyInUse.
@@ -197,13 +197,13 @@ abstract class AppLocalizations {
   /// No description provided for @invalidEmail.
   ///
   /// In en, this message translates to:
-  /// **'Invalid email address.'**
+  /// **'Please enter a valid email address.'**
   String get invalidEmail;
 
   /// No description provided for @signupError.
   ///
   /// In en, this message translates to:
-  /// **'Sign up failed. Please try again.'**
+  /// **'Sign-up failed. Please try again.'**
   String get signupError;
 
   /// No description provided for @userDisabled.
@@ -269,19 +269,19 @@ abstract class AppLocalizations {
   /// No description provided for @scanText1.
   ///
   /// In en, this message translates to:
-  /// **'Place the QR code inside the frame to scan.'**
+  /// **'Place the QR code inside the frame to start scanning.'**
   String get scanText1;
 
   /// No description provided for @scanText2.
   ///
   /// In en, this message translates to:
-  /// **'Hold your device steady for quicker results.'**
+  /// **'Hold your device steady for faster and more accurate results.'**
   String get scanText2;
 
   /// No description provided for @scanningQr.
   ///
   /// In en, this message translates to:
-  /// **'Scanning code...'**
+  /// **'Scanning QR code...'**
   String get scanningQr;
 
   /// No description provided for @scanButton.
@@ -299,19 +299,19 @@ abstract class AppLocalizations {
   /// No description provided for @resultText1.
   ///
   /// In en, this message translates to:
-  /// **'ProReader keeps your last 10 days of scan history.'**
+  /// **'ProReader saves your last 10 days of scan history.'**
   String get resultText1;
 
   /// No description provided for @resultText2.
   ///
   /// In en, this message translates to:
-  /// **'To save your complete scan history, please'**
+  /// **'To unlock unlimited scan history, please'**
   String get resultText2;
 
   /// No description provided for @resultText3.
   ///
   /// In en, this message translates to:
-  /// **'purchase our Pro package.'**
+  /// **'upgrade to our Pro plan.'**
   String get resultText3;
 
   /// No description provided for @resultButton.
@@ -319,6 +319,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send'**
   String get resultButton;
+
+  /// No description provided for @cameraPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera access has been permanently denied. Please enable it from settings.'**
+  String get cameraPermission;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get openSettings;
+
+  /// No description provided for @unexpectedError.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get unexpectedError;
+
+  /// No description provided for @urlError.
+  ///
+  /// In en, this message translates to:
+  /// **'The URL could not be opened.'**
+  String get urlError;
+
+  /// No description provided for @saveError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while saving the result.'**
+  String get saveError;
+
+  /// No description provided for @scanResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Result'**
+  String get scanResult;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @scanFrame.
+  ///
+  /// In en, this message translates to:
+  /// **'Place the QR code inside the frame to scan.'**
+  String get scanFrame;
 }
 
 class _AppLocalizationsDelegate

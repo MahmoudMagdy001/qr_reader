@@ -8,18 +8,18 @@
   "enterYourEmail": "Enter your email",
   "enterYourPassword": "Enter your password",
   "enterYourPhone": "Enter your phone number",
-  "forgetPassword": "Forgot password?",
+  "forgetPassword": "Forgot your password?",
   "loginCreateAccount": "Don't have an account?",
   "loginCreateButton": "Create one",
   "alreadyHaveAccount": "Already have an account?",
   "loginError": "Login failed. Please try again.",
 
   "signupText": "Sign Up",
-  "successCreateAccount": "Account created successfully!",
-  "weakPassword": "The password you provided is too weak.",
+  "successCreateAccount": "Your account has been created successfully!",
+  "weakPassword": "The password you entered is too weak.",
   "emailAlreadyInUse": "An account already exists with this email.",
-  "invalidEmail": "Invalid email address.",
-  "signupError": "Sign up failed. Please try again.",
+  "invalidEmail": "Please enter a valid email address.",
+  "signupError": "Sign-up failed. Please try again.",
   "userDisabled": "This user account has been disabled.",
 
   "userNotFound": "No user found with this email address.",
@@ -33,14 +33,24 @@
   "enterValidPhone": "Please enter a valid phone number.",
 
   "scanTitle": "Scan QR Code",
-  "scanText1": "Place the QR code inside the frame to scan.",
-  "scanText2": "Hold your device steady for quicker results.",
-  "scanningQr": "Scanning code...",
+  "scanText1": "Place the QR code inside the frame to start scanning.",
+  "scanText2": "Hold your device steady for faster and more accurate results.",
+  "scanningQr": "Scanning QR code...",
   "scanButton": "Open camera to scan",
 
   "resultTitle": "Scan Result",
-  "resultText1": "ProReader keeps your last 10 days of scan history.",
-  "resultText2": "To save your complete scan history, please",
-  "resultText3": "purchase our Pro package.",
-  "resultButton": "Send"
+  "resultText1": "ProReader saves your last 10 days of scan history.",
+  "resultText2": "To unlock unlimited scan history, please",
+  "resultText3": "upgrade to our Pro plan.",
+  "resultButton": "Send",
+
+  "cameraPermission": "Camera access has been permanently denied. Please enable it from settings.",
+  "openSettings": "Open Settings",
+  "unexpectedError": "An unexpected error occurred.",
+
+  "urlError": "The URL could not be opened.",
+  "saveError": "An error occurred while saving the result.",
+  "scanResult": "Scan Result",
+  "done": "Done",
+  "scanFrame": "Place the QR code inside the frame to scan."
 }

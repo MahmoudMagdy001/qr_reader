@@ -1,80 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../../core/theme/assets_name.dart';
-import '../../../core/widgets/custom_button.dart';
-import 'widgets/result_header.dart';
 import '../../../l10n/app_localizations.dart';
+import '../service/qr_service.dart';
 
 class ResultView extends StatelessWidget {
-  const ResultView({super.key});
+  const ResultView({super.key, this.qrResult});
+  final String? qrResult;
+
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     final height = size.height;
-    final width = size.width;
     final localization = AppLocalizations.of(context)!;
-
-    final results = List.generate(10, (index) => 'Result item ${index + 1}');
+    final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(localization.resultTitle),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
-        actions: [
-          InkWell(
-            onTap: () => Navigator.of(context).pop(),
-            child: SvgPicture.asset(
-              Assets.backIcon,
-              width: 30,
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
-                BlendMode.srcIn,
-              ),
+      appBar: AppBar(title: Text(localization.resultTitle)),
+      body: Column(
+        children: [
+          SizedBox(height: height * 0.02),
+          Column(
+            children: [
+              Text(localization.resultText1),
+              SizedBox(height: height * 0.003),
+              Text(localization.resultText2),
+              SizedBox(height: height * 0.003),
+              Text(localization.resultText3),
+            ],
+          ),
+          SizedBox(height: height * 0.02),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: QRHistoryService.userCodesStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return const Center(child: Text('لا توجد أكواد في السجل.'));
+                }
+
+                final codes = snapshot.data!.docs;
+
+                return ListView.builder(
+                  itemCount: codes.length,
+                  itemBuilder: (context, index) {
+                    final doc = codes[index];
+                    final data = doc.data() as Map<String, dynamic>;
+                    final String code = data['result'] ?? '';
+                    final timestamp = data['timestamp'] as Timestamp?;
+
+                    return ListTile(
+                      leading: SvgPicture.asset(
+                        Assets.documentIcon,
+                        height: height * 0.04,
+                      ),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(code, style: theme.textTheme.titleMedium),
+                          if (timestamp != null) ...[
+                            SizedBox(height: height * 0.01),
+                            Text(
+                              timestamp.toDate().toString(),
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ],
+                        ],
+                      ),
+                      onTap: () {
+                        if (code.startsWith('http')) {
+                          _launchURL(code);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ResultView(qrResult: code),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            ResultHeader(
-              height: height,
-              theme: theme,
-              localization: localization,
-            ),
-            SizedBox(height: height * 0.06),
-            // هنا الليست الجديدة
-            Expanded(
-              child: ListView.separated(
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: height * 0.02),
-                itemCount: results.length,
-                itemBuilder: (context, index) => ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset(Assets.documentIcon, width: 40),
-                      SizedBox(width: width * 0.06),
-                      Text(results[index], style: theme.textTheme.titleMedium),
-                    ],
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                  onTap: () {},
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: CustomButton(
-                onPressed: () {},
-                width: width,
-                child: Text(localization.resultButton),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

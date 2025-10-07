@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/assets_name.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../results/view/result_view.dart';
-import 'widgets/accesiblity_section.dart';
 import 'widgets/camera_scan_section.dart';
+import 'widgets/camera_scan_view.dart';
 import 'widgets/scan_header.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -49,10 +50,51 @@ class ScanView extends StatelessWidget {
             SizedBox(height: height * 0.1),
             CameraScanSection(height: height, localization: localization),
             SizedBox(height: height * 0.04),
-            AccesiblitySection(width: width),
-            SizedBox(height: height * 0.04),
             CustomButton(
-              onPressed: () {},
+              onPressed: () async {
+                try {
+                  final status = await Permission.camera.request();
+
+                  if (status.isGranted && context.mounted) {
+                    final result = await Navigator.of(context).push<String>(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CameraScanView(localization: localization),
+                      ),
+                    );
+
+                    if (result != null &&
+                        result.isNotEmpty &&
+                        context.mounted) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ResultView(qrResult: result),
+                        ),
+                      );
+                    }
+                  } else if (status.isPermanentlyDenied) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(localization.cameraPermission),
+                          action: SnackBarAction(
+                            label: localization.openSettings,
+                            onPressed: () => openAppSettings(),
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${localization.unexpectedError} $e'),
+                      ),
+                    );
+                  }
+                }
+              },
               width: width,
               child: Text(localization.scanButton),
             ),

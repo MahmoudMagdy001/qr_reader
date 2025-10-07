@@ -17,7 +17,6 @@ class CameraScanSection extends StatelessWidget {
     children: [
       SvgPicture.asset(Assets.scanIcon, height: height * 0.25),
       SizedBox(height: height * 0.03),
-      Text(localization.scanningQr),
     ],
   );
 }

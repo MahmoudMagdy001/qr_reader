@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterYourPhone => 'Enter your phone number';
 
   @override
-  String get forgetPassword => 'Forgot password?';
+  String get forgetPassword => 'Forgot your password?';
 
   @override
   String get loginCreateAccount => 'Don\'t have an account?';
@@ -48,19 +48,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupText => 'Sign Up';
 
   @override
-  String get successCreateAccount => 'Account created successfully!';
+  String get successCreateAccount =>
+      'Your account has been created successfully!';
 
   @override
-  String get weakPassword => 'The password you provided is too weak.';
+  String get weakPassword => 'The password you entered is too weak.';
 
   @override
   String get emailAlreadyInUse => 'An account already exists with this email.';
 
   @override
-  String get invalidEmail => 'Invalid email address.';
+  String get invalidEmail => 'Please enter a valid email address.';
 
   @override
-  String get signupError => 'Sign up failed. Please try again.';
+  String get signupError => 'Sign-up failed. Please try again.';
 
   @override
   String get userDisabled => 'This user account has been disabled.';
@@ -94,13 +95,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scanTitle => 'Scan QR Code';
 
   @override
-  String get scanText1 => 'Place the QR code inside the frame to scan.';
+  String get scanText1 =>
+      'Place the QR code inside the frame to start scanning.';
 
   @override
-  String get scanText2 => 'Hold your device steady for quicker results.';
+  String get scanText2 =>
+      'Hold your device steady for faster and more accurate results.';
 
   @override
-  String get scanningQr => 'Scanning code...';
+  String get scanningQr => 'Scanning QR code...';
 
   @override
   String get scanButton => 'Open camera to scan';
@@ -110,14 +113,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resultText1 =>
-      'ProReader keeps your last 10 days of scan history.';
+      'ProReader saves your last 10 days of scan history.';
 
   @override
-  String get resultText2 => 'To save your complete scan history, please';
+  String get resultText2 => 'To unlock unlimited scan history, please';
 
   @override
-  String get resultText3 => 'purchase our Pro package.';
+  String get resultText3 => 'upgrade to our Pro plan.';
 
   @override
   String get resultButton => 'Send';
+
+  @override
+  String get cameraPermission =>
+      'Camera access has been permanently denied. Please enable it from settings.';
+
+  @override
+  String get openSettings => 'Open Settings';
+
+  @override
+  String get unexpectedError => 'An unexpected error occurred.';
+
+  @override
+  String get urlError => 'The URL could not be opened.';
+
+  @override
+  String get saveError => 'An error occurred while saving the result.';
+
+  @override
+  String get scanResult => 'Scan Result';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get scanFrame => 'Place the QR code inside the frame to scan.';
 }
