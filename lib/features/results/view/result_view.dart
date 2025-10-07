@@ -21,7 +21,7 @@ class ResultView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Scanning Result'),
+        title: Text(localization.resultTitle),
         actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
         actions: [
           InkWell(
@@ -68,8 +68,9 @@ class ResultView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: CustomButton(
-                text: localization.resultButton,
                 onPressed: () {},
+                width: width,
+                child: Text(localization.resultButton),
               ),
             ),
           ],

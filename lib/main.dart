@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'core/cubits/localization_cubit.dart';
 import 'core/cubits/theme_cubit.dart';
-
 import 'core/theme/app_theme.dart';
-
 import 'features/login/view/login_view.dart';
+import 'features/scan/view/scan_view.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -43,9 +47,21 @@ class MyApp extends StatelessWidget {
           theme: appTheme.lightTheme,
           darkTheme: appTheme.darkTheme,
           themeMode: themeMode,
-          home: const LoginView(),
+          home: _getInitialView(),
         ),
       ),
     );
+  }
+
+  /// Determines the initial screen based on user login state
+  Widget _getInitialView() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // المستخدم مسجل دخول
+      return const ScanView();
+    } else {
+      // مفيش مستخدم مسجل
+      return const LoginView();
+    }
   }
 }

@@ -18,7 +18,7 @@ class AccesiblitySection extends StatelessWidget {
           onTap: () {},
           child: SvgPicture.asset(
             Assets.gelleryicon,
-            width: 25,
+            width: width * 0.07,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
         ),
@@ -27,7 +27,7 @@ class AccesiblitySection extends StatelessWidget {
           onTap: () {},
           child: SvgPicture.asset(
             Assets.blurIcon,
-            width: 30,
+            width: width * 0.085,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
         ),
@@ -36,7 +36,7 @@ class AccesiblitySection extends StatelessWidget {
           onTap: () {},
           child: SvgPicture.asset(
             Assets.flashIcon,
-            width: 12,
+            width: width * 0.032,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
         ),

@@ -51,7 +51,11 @@ class ScanView extends StatelessWidget {
             SizedBox(height: height * 0.04),
             AccesiblitySection(width: width),
             SizedBox(height: height * 0.04),
-            CustomButton(text: localization.scanButton, onPressed: () {}),
+            CustomButton(
+              onPressed: () {},
+              width: width,
+              child: Text(localization.scanButton),
+            ),
           ],
         ),
       ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034476443351",
+    "project_id": "qr-generator-c7313",
+    "storage_bucket": "qr-generator-c7313.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034476443351:android:9c5a751533c8d1f6c74292",
+        "android_client_info": {
+          "package_name": "com.example.qr_generator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNHS7lXDIA5PWp5U45OhJJD1gvQLPmXSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

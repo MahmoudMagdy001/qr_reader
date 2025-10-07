@@ -12,50 +12,112 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'QR Generator';
 
   @override
-  String get textOfButton => 'You have pushed the button this many times:';
+  String get languageText => 'Language';
+
+  @override
+  String get themeText => 'Theme';
 
   @override
   String get loginText => 'Login';
 
   @override
-  String get enterYourPhone => 'Enter Your Phone';
+  String get enterYourEmail => 'Enter your email';
 
   @override
-  String get enterYourPassword => 'Password';
+  String get enterYourPassword => 'Enter your password';
 
   @override
-  String get forgetPassword => 'Forget Password?';
+  String get enterYourPhone => 'Enter your phone number';
 
   @override
-  String get scanTitle => 'Scan QR code';
+  String get forgetPassword => 'Forgot password?';
 
   @override
-  String get scanText1 => 'Place QR code inside the frame to scan please';
+  String get loginCreateAccount => 'Don\'t have an account?';
 
   @override
-  String get scanText2 => 'Avoid shake to get results quickly';
+  String get loginCreateButton => 'Create one';
 
   @override
-  String get scanningQr => 'Scanning Code...';
+  String get alreadyHaveAccount => 'Already have an account?';
 
   @override
-  String get scanButton => 'Place Camera Code';
+  String get loginError => 'Login failed. Please try again.';
 
   @override
-  String get resultText1 => 'Proreader will keep your last 10 days history';
+  String get signupText => 'Sign Up';
 
   @override
-  String get resultText2 => 'To keep all your scanned history please';
+  String get successCreateAccount => 'Account created successfully!';
 
   @override
-  String get resultText3 => 'purchase our pro package';
+  String get weakPassword => 'The password you provided is too weak.';
+
+  @override
+  String get emailAlreadyInUse => 'An account already exists with this email.';
+
+  @override
+  String get invalidEmail => 'Invalid email address.';
+
+  @override
+  String get signupError => 'Sign up failed. Please try again.';
+
+  @override
+  String get userDisabled => 'This user account has been disabled.';
+
+  @override
+  String get userNotFound => 'No user found with this email address.';
+
+  @override
+  String get wrongPassword => 'Incorrect password.';
+
+  @override
+  String get requiredEmail => 'Email is required.';
+
+  @override
+  String get enterValidEmail => 'Please enter a valid email address.';
+
+  @override
+  String get requiredPassword => 'Password is required.';
+
+  @override
+  String get enterValidPassword =>
+      'Password must be at least 6 characters long.';
+
+  @override
+  String get requiredPhone => 'Phone number is required.';
+
+  @override
+  String get enterValidPhone => 'Please enter a valid phone number.';
+
+  @override
+  String get scanTitle => 'Scan QR Code';
+
+  @override
+  String get scanText1 => 'Place the QR code inside the frame to scan.';
+
+  @override
+  String get scanText2 => 'Hold your device steady for quicker results.';
+
+  @override
+  String get scanningQr => 'Scanning code...';
+
+  @override
+  String get scanButton => 'Open camera to scan';
+
+  @override
+  String get resultTitle => 'Scan Result';
+
+  @override
+  String get resultText1 =>
+      'ProReader keeps your last 10 days of scan history.';
+
+  @override
+  String get resultText2 => 'To save your complete scan history, please';
+
+  @override
+  String get resultText3 => 'purchase our Pro package.';
 
   @override
   String get resultButton => 'Send';
-
-  @override
-  String get languageText => 'Language';
-
-  @override
-  String get themeText => 'Theme';
 }

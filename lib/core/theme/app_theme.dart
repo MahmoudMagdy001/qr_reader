@@ -196,6 +196,8 @@ class AppThemeFactory {
 
   InputDecorationTheme _lightInputDecorationTheme(AppTextStyles styles) =>
       InputDecorationTheme(
+        suffixIconColor: const Color(0xff8B90A0),
+        prefixIconColor: const Color(0xff8B90A0),
         filled: true,
         fillColor: AppColors.lightInputFill,
         border: OutlineInputBorder(
