@@ -367,6 +367,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Place the QR code inside the frame to scan.'**
   String get scanFrame;
+
+  /// No description provided for @logoutText.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutText;
+
+  /// No description provided for @logoutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get logoutConfirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
 }
 
 class _AppLocalizationsDelegate

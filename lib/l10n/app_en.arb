@@ -52,5 +52,11 @@
   "saveError": "An error occurred while saving the result.",
   "scanResult": "Scan Result",
   "done": "Done",
-  "scanFrame": "Place the QR code inside the frame to scan."
+  "scanFrame": "Place the QR code inside the frame to scan.",
+
+  "logoutText": "Logout",
+  "logoutConfirm": "Are you sure you want to log out?",
+  "cancel": "Cancel",
+  "confirm": "Confirm"
+
 }

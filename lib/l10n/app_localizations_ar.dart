@@ -145,4 +145,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get scanFrame => 'ضع رمز QR داخل الإطار للمسح.';
+
+  @override
+  String get logoutText => 'تسجيل الخروج';
+
+  @override
+  String get logoutConfirm => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get confirm => 'تأكيد';
 }

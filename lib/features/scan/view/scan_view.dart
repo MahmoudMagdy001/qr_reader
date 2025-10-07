@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/assets_name.dart';
 import '../../../core/widgets/custom_button.dart';
+import '../../login/view/login_view.dart';
 import '../../results/view/result_view.dart';
 import 'widgets/camera_scan_section.dart';
 import 'widgets/camera_scan_view.dart';
@@ -37,6 +39,39 @@ class ScanView extends StatelessWidget {
               ),
             ),
           ),
+          IconButton(
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(localization.logoutText),
+                  content: Text(localization.logoutConfirm),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(localization.cancel),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await FirebaseAuth.instance.signOut();
+
+                        if (context.mounted) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginView(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(localization.confirm),
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.logout_rounded),
+          ),
         ],
       ),
       body: SafeArea(
@@ -58,8 +93,11 @@ class ScanView extends StatelessWidget {
                   if (status.isGranted && context.mounted) {
                     final result = await Navigator.of(context).push<String>(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            CameraScanView(localization: localization),
+                        builder: (context) => CameraScanView(
+                          localization: localization,
+                          height: height,
+                          width: width,
+                        ),
                       ),
                     );
 

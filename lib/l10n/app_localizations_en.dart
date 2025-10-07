@@ -148,4 +148,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanFrame => 'Place the QR code inside the frame to scan.';
+
+  @override
+  String get logoutText => 'Logout';
+
+  @override
+  String get logoutConfirm => 'Are you sure you want to log out?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
 }

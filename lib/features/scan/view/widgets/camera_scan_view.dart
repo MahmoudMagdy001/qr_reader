@@ -7,8 +7,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class CameraScanView extends StatefulWidget {
-  const CameraScanView({required this.localization, super.key});
+  const CameraScanView({
+    required this.localization,
+    required this.height,
+    required this.width,
+    super.key,
+  });
   final AppLocalizations localization;
+  final double height;
+  final double width;
 
   @override
   State<CameraScanView> createState() => _CameraScanViewState();
@@ -115,8 +122,8 @@ class _CameraScanViewState extends State<CameraScanView> {
         MobileScanner(controller: cameraController, onDetect: _handleBarcode),
         Center(
           child: Container(
-            width: 250,
-            height: 250,
+            width: widget.width * 0.8,
+            height: widget.height * 0.4,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.green, width: 3),
               borderRadius: BorderRadius.circular(12),
