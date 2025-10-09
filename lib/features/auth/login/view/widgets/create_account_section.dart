@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../l10n/app_localizations.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../../../signup/view/signup_view.dart';
 
 class CreateAccountSection extends StatelessWidget {

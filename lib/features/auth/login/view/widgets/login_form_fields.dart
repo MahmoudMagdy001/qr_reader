@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../../l10n/app_localizations.dart';
 
-class SignupFormFileds extends StatefulWidget {
-  const SignupFormFileds({
-    required this.width,
-    required this.height,
+class LoginFormFields extends StatefulWidget {
+  const LoginFormFields({
     required this.localization,
+    required this.height,
+    required this.theme,
+    required this.width,
     required this.emailController,
     required this.passwordController,
-    required this.phoneController,
     required this.formKey,
     super.key,
   });
 
-  final double width;
-  final double height;
   final AppLocalizations localization;
+  final double height;
+  final ThemeData theme;
+  final double width;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final TextEditingController phoneController;
   final GlobalKey<FormState> formKey;
 
   @override
-  State<SignupFormFileds> createState() => _SignupFormFiledsState();
+  State<LoginFormFields> createState() => _LoginFormFieldsState();
 }
 
-class _SignupFormFiledsState extends State<SignupFormFileds> {
+class _LoginFormFieldsState extends State<LoginFormFields> {
   bool _obscurePassword = true;
 
   @override
@@ -36,29 +36,7 @@ class _SignupFormFiledsState extends State<SignupFormFileds> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // 🔹 Phone
-          TextFormField(
-            controller: widget.phoneController,
-            keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.phone_rounded),
-              label: Text(widget.localization.enterYourPhone),
-            ),
-            onTapUpOutside: (_) => FocusScope.of(context).unfocus(),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return widget.localization.requiredPhone;
-              }
-              final phoneRegex = RegExp(r'^\+?\d{10,15}$');
-              if (!phoneRegex.hasMatch(value.trim())) {
-                return widget.localization.enterValidPhone;
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: widget.height * 0.03),
-
-          // 🔹 Email
+          // حقل البريد الإلكتروني
           TextFormField(
             controller: widget.emailController,
             keyboardType: TextInputType.emailAddress,
@@ -66,37 +44,37 @@ class _SignupFormFiledsState extends State<SignupFormFileds> {
               prefixIcon: const Icon(Icons.email_rounded),
               label: Text(widget.localization.enterYourEmail),
             ),
-            onTapUpOutside: (_) => FocusScope.of(context).unfocus(),
             validator: (value) {
-              if (value == null || value.trim().isEmpty) {
+              if (value == null || value.isEmpty) {
                 return widget.localization.requiredEmail;
               }
-              final emailRegex = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$');
-              if (!emailRegex.hasMatch(value.trim())) {
+              if (!value.contains('@')) {
                 return widget.localization.enterValidEmail;
               }
               return null;
             },
+            onTapOutside: (_) => FocusScope.of(context).unfocus(),
           ),
           SizedBox(height: widget.height * 0.03),
 
-          // 🔹 Password
+          // حقل كلمة المرور
           TextFormField(
-            keyboardType: TextInputType.visiblePassword,
             controller: widget.passwordController,
             obscureText: _obscurePassword,
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.lock_rounded),
               label: Text(widget.localization.enterYourPassword),
               suffixIcon: IconButton(
-                onPressed: () =>
-                    setState(() => _obscurePassword = !_obscurePassword),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off : Icons.visibility,
                 ),
               ),
             ),
-            onTapUpOutside: (_) => FocusScope.of(context).unfocus(),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return widget.localization.requiredPassword;
@@ -106,6 +84,18 @@ class _SignupFormFiledsState extends State<SignupFormFileds> {
               }
               return null;
             },
+            onTapOutside: (_) => FocusScope.of(context).unfocus(),
+          ),
+
+          SizedBox(height: widget.height * 0.008),
+
+          // زر نسيان كلمة المرور
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              widget.localization.forgetPassword,
+              style: widget.theme.textTheme.bodyMedium,
+            ),
           ),
         ],
       ),

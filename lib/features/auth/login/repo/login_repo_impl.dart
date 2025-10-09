@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../service/login_service.dart';
 import 'login_repo.dart';
 

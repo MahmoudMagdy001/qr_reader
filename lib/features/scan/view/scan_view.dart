@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/assets_name.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../login/view/login_view.dart';
+import '../../auth/login/view/login_view.dart';
 import '../../results/view/result_view.dart';
 import 'widgets/camera_scan_section.dart';
 import 'widgets/camera_scan_view.dart';
@@ -13,6 +13,93 @@ import '../../../l10n/app_localizations.dart';
 
 class ScanView extends StatelessWidget {
   const ScanView({super.key});
+
+  void _navigateToResults(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => const ResultView()));
+  }
+
+  void _showLogoutDialog(BuildContext context, AppLocalizations localization) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(localization.logoutText),
+        content: Text(localization.logoutConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(localization.cancel),
+          ),
+          TextButton(
+            onPressed: () => _logout(context),
+            child: Text(localization.confirm),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    Navigator.pop(context);
+    await FirebaseAuth.instance.signOut();
+
+    if (context.mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginView()),
+      );
+    }
+  }
+
+  Future<void> _scanQRCode(BuildContext context) async {
+    final localization = AppLocalizations.of(context)!;
+    final size = MediaQuery.of(context).size;
+
+    try {
+      final status = await Permission.camera.request();
+
+      if (status.isGranted && context.mounted) {
+        Navigator.of(context).push<String>(
+          MaterialPageRoute(
+            builder: (context) => CameraScanView(
+              localization: localization,
+              height: size.height,
+              width: size.width,
+            ),
+          ),
+        );
+      } else if (status.isPermanentlyDenied && context.mounted) {
+        _showPermissionDeniedSnackbar(context, localization);
+      }
+    } catch (e) {
+      _showErrorSnackbar(context, localization, e.toString());
+    }
+  }
+
+  void _showPermissionDeniedSnackbar(
+    BuildContext context,
+    AppLocalizations localization,
+  ) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(localization.cameraPermission),
+        action: SnackBarAction(
+          label: localization.openSettings,
+          onPressed: () => openAppSettings(),
+        ),
+      ),
+    );
+  }
+
+  void _showErrorSnackbar(
+    BuildContext context,
+    AppLocalizations localization,
+    String error,
+  ) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${localization.unexpectedError} $error')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +114,7 @@ class ScanView extends StatelessWidget {
         title: Text(localization.scanTitle),
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => const ResultView())),
+            onPressed: () => _navigateToResults(context),
             icon: SvgPicture.asset(
               Assets.resultIcon,
               width: 30,
@@ -40,36 +125,7 @@ class ScanView extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () async {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(localization.logoutText),
-                  content: Text(localization.logoutConfirm),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(localization.cancel),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        await FirebaseAuth.instance.signOut();
-
-                        if (context.mounted) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginView(),
-                            ),
-                          );
-                        }
-                      },
-                      child: Text(localization.confirm),
-                    ),
-                  ],
-                ),
-              );
-            },
+            onPressed: () => _showLogoutDialog(context, localization),
             icon: const Icon(Icons.logout_rounded),
           ),
         ],
@@ -86,53 +142,7 @@ class ScanView extends StatelessWidget {
             CameraScanSection(height: height, localization: localization),
             SizedBox(height: height * 0.04),
             CustomButton(
-              onPressed: () async {
-                try {
-                  final status = await Permission.camera.request();
-
-                  if (status.isGranted && context.mounted) {
-                    final result = await Navigator.of(context).push<String>(
-                      MaterialPageRoute(
-                        builder: (context) => CameraScanView(
-                          localization: localization,
-                          height: height,
-                          width: width,
-                        ),
-                      ),
-                    );
-
-                    if (result != null &&
-                        result.isNotEmpty &&
-                        context.mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ResultView(qrResult: result),
-                        ),
-                      );
-                    }
-                  } else if (status.isPermanentlyDenied) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(localization.cameraPermission),
-                          action: SnackBarAction(
-                            label: localization.openSettings,
-                            onPressed: () => openAppSettings(),
-                          ),
-                        ),
-                      );
-                    }
-                  }
-                } catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${localization.unexpectedError} $e'),
-                      ),
-                    );
-                  }
-                }
-              },
+              onPressed: () => _scanQRCode(context),
               width: width,
               child: Text(localization.scanButton),
             ),

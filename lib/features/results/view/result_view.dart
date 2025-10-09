@@ -7,16 +7,23 @@ import '../../../core/theme/assets_name.dart';
 import '../../../l10n/app_localizations.dart';
 import '../service/qr_service.dart';
 
-class ResultView extends StatelessWidget {
+class ResultView extends StatefulWidget {
   const ResultView({super.key, this.qrResult});
   final String? qrResult;
 
+  @override
+  State<ResultView> createState() => _ResultView();
+}
+
+class _ResultView extends State<ResultView> {
   Future<void> _launchURL(String url) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
+
+  final QRHistoryService _qrHistoryService = QRHistoryService();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,7 @@ class ResultView extends StatelessWidget {
           SizedBox(height: height * 0.02),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: QRHistoryService.userCodesStream(),
+              stream: _qrHistoryService.userCodesStream(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());

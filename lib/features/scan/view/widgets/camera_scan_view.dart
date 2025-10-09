@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../service/scan_service.dart';
 
 class CameraScanView extends StatefulWidget {
   const CameraScanView({
@@ -23,50 +21,16 @@ class CameraScanView extends StatefulWidget {
 
 class _CameraScanViewState extends State<CameraScanView> {
   MobileScannerController cameraController = MobileScannerController();
+  final ScanService _scanService = ScanService();
   bool _isFlashOn = false;
   bool _isScanned = false;
 
-  final CollectionReference _scanResults = FirebaseFirestore.instance
-      .collection('scan_results');
-
-  Future<void> _launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${widget.localization.urlError} $url')),
-        );
-      }
-    }
-  }
-
-  Future<void> _saveToFirestore(String result) async {
-    try {
-      await _scanResults.add({
-        'result': result,
-        'timestamp': FieldValue.serverTimestamp(),
-        'type': result.startsWith('http') ? 'url' : 'text',
-        'user_id': FirebaseAuth.instance.currentUser?.uid,
-      });
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(widget.localization.saveError)));
-      }
-    }
-  }
-
-  void _handleBarcode(BarcodeCapture barcodes) {
+  Future<void> _handleBarcode(BarcodeCapture barcodes) async {
     final barcode = barcodes.barcodes.firstOrNull;
     if (_isScanned || barcode == null || barcode.rawValue == null) return;
 
     final result = barcode.rawValue!;
     setState(() => _isScanned = true);
-
-    _saveToFirestore(result);
 
     if (result.startsWith('http')) {
       _launchURL(result);
@@ -87,6 +51,25 @@ class _CameraScanViewState extends State<CameraScanView> {
           ],
         ),
       );
+    }
+  }
+
+  Future<void> _launchURL(String result) async {
+    try {
+      await _scanService.saveScanResult(result);
+      if (mounted) {
+        await _scanService.handleUrl(
+          result,
+          context: context,
+          localization: widget.localization,
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(widget.localization.saveError)));
+      }
     }
   }
 

@@ -1,15 +1,18 @@
-// ignore_for_file: avoid_classes_with_only_static_members
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class QRHistoryService {
-  static final _collection = FirebaseFirestore.instance.collection(
-    'scan_results',
-  );
+  QRHistoryService({FirebaseFirestore? firestore, FirebaseAuth? auth})
+    : _firestore = firestore ?? FirebaseFirestore.instance,
+      _auth = auth ?? FirebaseAuth.instance;
 
-  static Future<void> addCode(String code) async {
-    final user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firestore;
+  final FirebaseAuth _auth;
+
+  CollectionReference get _collection => _firestore.collection('scan_results');
+
+  Future<void> addCode(String code) async {
+    final user = _auth.currentUser;
     if (user == null) return;
 
     await _collection.add({
@@ -20,17 +23,14 @@ class QRHistoryService {
     });
   }
 
-  static Stream<QuerySnapshot> userCodesStream() {
-    final user = FirebaseAuth.instance.currentUser;
+  Stream<QuerySnapshot> userCodesStream() {
+    final user = _auth.currentUser;
     if (user == null) return const Stream.empty();
 
-    return _collection
-        .where('user_id', isEqualTo: user.uid)
-        .limit(10)
-        .snapshots();
+    return _collection.where('user_id', isEqualTo: user.uid).snapshots();
   }
 
-  static Future<void> deleteCode(String docId) async {
+  Future<void> deleteCode(String docId) async {
     await _collection.doc(docId).delete();
   }
 }
